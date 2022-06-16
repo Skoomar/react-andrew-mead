@@ -1,108 +1,94 @@
-'use strict';
+"use strict";
 
-// Some things to keep in mind about arrow functions
-// arguments object - no longer bound with arrow functions. I.e. if you try to access the arguments, it won't work
-// this keyword - no longer bound with arrow functions
+console.log('App.js is running');
 
-
-// example of arguments object not being bound
-// notice that where the function has been called, 3 arguments have been passed even though the
-// function only takes two arguments. JS can handle this and you can access the extra arguments passed
-// in by using the `arguments` object
-// in arrow functions, you can no longer use this. You're limited the parameters defined in the function signature
-var add = function add(a, b) {
-    // in normal functions we can access the arguments using this arguments object
-    console.log(arguments);
-    return a + b;
+var app = {
+    title: "Indecision App",
+    subtitle: "yee",
+    options: ["One", "Two"]
 };
-console.log(add(1, 2, 3));
 
-// arrow function
-var add2 = function add2(a, b) {
-    // trying to use arguments object in arrow functions will throw an error
-    // console.log(arguments);
-    return a + b;
-};
-// so if, for whatever reason, you've decided you need to see extra arguments that may be passed in,
-// just use normal functions as you won't be able to see them in arrow functions
+// We don't want to just use normal HTML forms as they re-render the whole page to collect the form data
+// instead we use React event handlers to take the input from the form without screwing with refreshing the page
+// https://reactjs.org/docs/handling-events.html - to see all the event handlers you can use in React
+// here we will use onSubmit
 
-//==================================================================================================
+var onFormSubmit = function onFormSubmit(e) {
+    e.preventDefault(); // stops the full page refreshing
 
-// example of this keyword not being bound
-var user = {
-    name: "Umar",
-    cities: ['London', 'Nottingham', 'York', 'Exeter'],
-    // we can define functions inside objects
-    printPlacesLived: function printPlacesLived() {
-        // function can use `this` to refer to the other properties in this object
-        console.log(this.name);
-        console.log(this.cities);
+    // .target points to the element that the event started on, <form> in this case
+    // .elements contains a list of child elements from the target element
+    // .option, here we use the name that we defined the <input> with to get access to it
+    // .value - the value inside that element
+    var option = e.target.elements.option.value;
 
-        // here we create a simple anonymous function (not an arrow function)
-        this.cities.forEach(function (city) {
-            // now if we use `this` inside this anonymous function, an error will be thrown
-            // because in simple anonymous functions, `this` is set to undefined
-            console.log(this.name + ' has lived in ' + city);
-        });
+    if (option) {
+        app.options.push(option); // push the value into the options array in the app object
+        e.target.elements.option.value = ''; // clear the input
+        render();
     }
 };
-user.printPlacesLived();
 
-// in arrow functions, the function doesn't bind `this` to its own value, instead it just takes
-// the value of their parent scope/context
-var user2 = {
-    name: "Umar",
-    cities: ['London', 'Nottingham', 'York', 'Exeter'],
-    printPlacesLived: function printPlacesLived() {
-        var _this = this;
-
-        console.log(this.name);
-        console.log(this.cities);
-
-        // using an arrow function this time
-        this.cities.forEach(function (city) {
-            // now we're able to use `this`
-            console.log(_this.name + ' has lived in ' + city);
-        });
-    }
+var onRemoveAll = function onRemoveAll() {
+    app.options = [];
+    render();
 };
-user2.printPlacesLived();
 
-// there are certain places where you don't want to use arrow functions
-var user3 = {
-    name: "Umar",
-    cities: ['London', 'Nottingham', 'York', 'Exeter'],
-
-    // if we make printPlacesLived an arrow function instead then it will use the wrong `this`.
-    // it won't be the `this` for the user3 object, it'll be the `this` of the parent
-    // scope of the object (the global scope in this case)
-    // so better just to leave this as a normal ES5 function
-    printPlacesLived: function printPlacesLived() {
-        console.log(undefined.name);
-        console.log(undefined.cities);
-
-        // using an arrow function this time
-        undefined.cities.forEach(function (city) {
-            // now we're able to use `this`
-            console.log(undefined.name + ' has lived in ' + city);
-        });
-    }
+var appRoot = document.getElementById('app');
+var render = function render() {
+    var template = React.createElement(
+        "div",
+        null,
+        React.createElement(
+            "h1",
+            null,
+            app.title
+        ),
+        app.subtitle && React.createElement(
+            "p",
+            null,
+            app.subtitle
+        ),
+        React.createElement(
+            "p",
+            null,
+            app.options.length > 0 ? 'Here are your options' : 'No options'
+        ),
+        React.createElement(
+            "p",
+            null,
+            app.options.length
+        ),
+        React.createElement(
+            "button",
+            { onClick: onRemoveAll },
+            "Remove All"
+        ),
+        React.createElement(
+            "ol",
+            null,
+            React.createElement(
+                "li",
+                null,
+                "Item one"
+            ),
+            React.createElement(
+                "li",
+                null,
+                "Item two"
+            )
+        ),
+        React.createElement(
+            "form",
+            { onSubmit: onFormSubmit },
+            React.createElement("input", { type: "text", name: "option" }),
+            React.createElement(
+                "button",
+                null,
+                "Add option"
+            )
+        )
+    );
+    ReactDOM.render(template, appRoot);
 };
-user3.printPlacesLived();
-
-// note: there is a workaround if you REALLY want to use `this` in a conventional anonymous function
-var user4 = {
-    name: "Umar",
-    cities: ['London', 'Nottingham', 'York', 'Exeter'],
-    printPlacesLived: function printPlacesLived() {
-        console.log(this.name);
-        console.log(this.cities);
-
-        // we can assign the value of `this` to a variable which we can use inside the anonymous func
-        var that = this;
-        this.cities.forEach(function (city) {
-            console.log(that.name + ' has lived in ' + city);
-        });
-    }
-};
-user4.printPlacesLived();
+render();

@@ -1,63 +1,56 @@
-// https://babeljs.io/repl to see how Babel converts the ES6/7 to ES5
+console.log('App.js is running');
 
-// this is the ES5 that Babel compiles ES6/7 to.
-// this is the only time we'll see this in the course as we will use Babel to deal with it for us
-// so we can just write it simply like above
-// var template = React.createElement(
-//     "p",
-//     {id: "someid"},
-//     "This is JSX"
-// );
-
-// var template = <p>This is JSX</p>; // this is what you can write in ES6/7 which Babel then should compile to ES5
-
-var app = {
+const app = {
     title: "Indecision App",
     subtitle: "yee",
     options: ["One", "Two"]
 };
 
-var template = (
-    <div>
-        <h1>{app.title}</h1>
-        {app.subtitle && <p>{app.subtitle}</p>}
-        <p>{app.options.length > 0 ? "Here are your options" : "No options"}</p>
-    </div>
-);
+// We don't want to just use normal HTML forms as they re-render the whole page to collect the form data
+// instead we use React event handlers to take the input from the form without screwing with refreshing the page
+// https://reactjs.org/docs/handling-events.html - to see all the event handlers you can use in React
+// here we will use onSubmit
 
+const onFormSubmit = (e) => {
+    e.preventDefault() // stops the full page refreshing
 
+    // .target points to the element that the event started on, <form> in this case
+    // .elements contains a list of child elements from the target element
+    // .option, here we use the name that we defined the <input> with to get access to it
+    // .value - the value inside that element
+    const option = e.target.elements.option.value;
 
-// Section 3: Chapter 10 & 11 challenge
-// var userName = "Umar";
-// var userAge = 24;
-// var userLocation = "Notts";
-
-var user = {
-    name: "Umar",
-    age: 24,
-    location: "Notts"
-}
-
-// Conditional Rendering
-// can render JSX if a condition is true, otherwise doesn't render any JSX
-function getLocation(location) {
-    if (location) {
-        return <p>Location: {location}</p>;
+    if (option) {
+        app.options.push(option); // push the value into the options array in the app object
+        e.target.elements.option.value = ''; // clear the input
+        render();
     }
 }
 
-var templateTwo = (
-    <div>
-        {/* Ternary Operator: for when you want to render either one thing or the other*/}
-        <h1>{user.name ? user.name : "Anonymous"}</h1>
-        {/* Logical AND operator: for when you want to render either something or nothing.
-            If condition on the LHS is true then the JSX in the RHS will be rendered. Otherwise
-            doesn't render anything. Bassically a short way of doing what was done for rendering location.*/}
-        {(user.age && user.age >= 18) && <p>Age: {user.age}</p>}
-        {getLocation(user.location)}
-    </div>
-)
+const onRemoveAll = () => {
+    app.options = [];
+    render();
+}
 
-
-var appRoot = document.getElementById('app');
-ReactDOM.render(template, appRoot);
+const appRoot = document.getElementById('app');
+const render = () => {
+    const template = (
+        <div>
+            <h1>{app.title}</h1>
+            {app.subtitle && <p>{app.subtitle}</p>}
+            <p>{app.options.length > 0 ? 'Here are your options' : 'No options'}</p>
+            <p>{app.options.length}</p>
+            <button onClick={onRemoveAll}>Remove All</button>
+            <ol>
+                <li>Item one</li>
+                <li>Item two</li>
+            </ol>
+            <form onSubmit={onFormSubmit}>
+                <input type="text" name="option"/>
+                <button>Add option</button>
+            </form>
+        </div>
+    );
+    ReactDOM.render(template, appRoot);
+}
+render();
