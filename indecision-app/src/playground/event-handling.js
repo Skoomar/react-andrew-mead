@@ -72,6 +72,7 @@ const render = () => {
 
             <ol>
                 {
+                    // don't forget to put the key attribute
                     app.options.map((option) => <li key={option}>{option}</li>)
                 }
             </ol>
