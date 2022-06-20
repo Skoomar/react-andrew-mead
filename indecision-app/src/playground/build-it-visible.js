@@ -1,7 +1,8 @@
-let showDetails = false;
+// Section 3: Chapter 21. Build It - VisibilityToggle
+let visibility = false;
 
-const onToggleDetails = () => {
-    showDetails = !showDetails;
+const toggleVisibility = () => {
+    visibility = !visibility;
     render();
 }
 
@@ -11,8 +12,8 @@ const render = () => {
         <div>
             <h1>Visibility Toggle</h1>
 
-            <button onClick={onToggleDetails}>{showDetails ? 'Hide details' : 'Show details'}</button>
-            {showDetails && <p>These are details</p>}
+            <button onClick={toggleVisibility}>{visibility ? 'Hide details' : 'Show details'}</button>
+            {visibility && <p>These are details</p>}
         </div>
     )
     ReactDOM.render(template, appRoot);
