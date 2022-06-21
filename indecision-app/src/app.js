@@ -65,43 +65,38 @@ class IndecisionApp extends React.Component {
                     options={this.state.options}
                     handleDeleteOptions={this.handleDeleteOptions}
                 />
-                <AddOption handleAddOption={this.handleAddOption} />
+                <AddOption handleAddOption={this.handleAddOption}/>
             </div>
         );
     }
 }
 
-class Header extends React.Component {
-    render() {
-        // React Components have `props`. This an array of key-value pairs of any attributes which
-        // are passed in through the JSX when calling the component
-
-        console.log(this.props);
-        return (
-            <div>
-                <h1>{this.props.title}</h1>
-                <h2>{this.props.subtitle}</h2>
-            </div>
-        )
-    }
+const Header = (props) => {
+    // React Components have `props`. This an array of key-value pairs of any attributes which
+    // are passed in through the JSX when calling the component
+    console.log(props);
+    return (
+        <div>
+            <h1>{props.title}</h1>
+            <h2>{props.subtitle}</h2>
+        </div>
+    )
 }
 
-class Action extends React.Component {
-    render() {
-        return (
-            <div>
-                <button
-                    onClick={this.props.handlePick}
-                    disabled={!this.props.hasOptions}
-                >
-                    What should I do?
-                </button>
-            </div>
-        )
-    }
+const Action = (props) => {
+    return (
+        <div>
+            <button
+                onClick={props.handlePick}
+                disabled={!props.hasOptions}
+            >
+                What should I do?
+            </button>
+        </div>
+    )
 }
 
-class Options extends React.Component {
+const Options = (props) => {
     // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind
     // like we mentioned in a previous lecture about data binding
     // and issues with `this` not being bound to the object we would like
@@ -112,7 +107,7 @@ class Options extends React.Component {
     // but that's a bit inefficient and means bind must be called every time the method is called
     // instead we just put it in the constructor
 
-    // NOTE: this code was here earlier but as of Section 4: Chapter 36, we don't need the constructor and handleRemoveAll. We use props instead
+    // NOTE: this code was here earlier but as of Section 4: Chapter 36, we don't need the constructor and handleRemoveAll.
     // constructor(props) {
     //     super(props);
     //     // so doing it this way means that you don't have to type out .bind multiple times for the same method when you call it throughout the class
@@ -124,28 +119,24 @@ class Options extends React.Component {
     //     alert('remove all')
     // }
 
-    render() {
-        return (
-            <div>
-                {/* bind handleRemoveAll to this class so it can use the props that were handed down here*/}
-                <button onClick={this.props.handleDeleteOptions}>Remove All</button>
-                <p>{this.props.options.length}</p>
-                {
-                    this.props.options.map((option) => <Option key={option} optionText={option}/>)
-                }
-            </div>
-        );
-    }
+    return (
+        <div>
+            {/* bind handleRemoveAll to this class so it can use the props that were handed down here*/}
+            <button onClick={props.handleDeleteOptions}>Remove All</button>
+            <p>{props.options.length}</p>
+            {
+                props.options.map((option) => <Option key={option} optionText={option}/>)
+            }
+        </div>
+    );
 }
 
-class Option extends React.Component {
-    render() {
-        return (
-            <div>
-                {this.props.optionText}
-            </div>
-        );
-    }
+const Option = (props) => {
+    return (
+        <div>
+            {props.optionText}
+        </div>
+    );
 }
 
 class AddOption extends React.Component {
@@ -166,7 +157,7 @@ class AddOption extends React.Component {
         this.setState(() => {
             // if you are setting state with a variable that has the same name as the state attribute, you can just put that name there instead of typing `error: error`
             // can put the return all on one line as you're only updating one thing. common to do this with error handling state
-            return { error }
+            return {error}
         })
         e.target.elements.option.value = '';
     }
@@ -183,6 +174,5 @@ class AddOption extends React.Component {
         );
     }
 }
-
 
 ReactDOM.render(<IndecisionApp/>, document.getElementById('app'));
