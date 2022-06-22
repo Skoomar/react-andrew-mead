@@ -11,12 +11,38 @@ class IndecisionApp extends React.Component {
     constructor(props) {
         super(props);
         this.handleDeleteOptions = this.handleDeleteOptions.bind(this);
+        this.handleDeleteOption = this.handleDeleteOption.bind(this);
         this.handlePick = this.handlePick.bind(this);
         this.handleAddOption = this.handleAddOption.bind(this);
 
         this.state = {
-            options: []
+            // set options to use defaultProps. If a value isn't passed in for options when IndecisionApp is called, default value is used
+            options: props.options
         }
+    }
+
+    // S5:Ch44 - Lifecycle Methods - methods that run at certain events in a component's life
+    // https://reactjs.org/docs/react-component.html - lifecycle methods and other info
+    // Note: these are ONLY available for class-based components.
+    // Functional components don't have these (but they are more efficient for it because they don't have to manage any lifecycle and keep running these methods at certain events)
+    // componentDidMount - runs when the component is rendered to the screen
+    componentDidMount() {
+        console.log('mounted')
+    }
+
+    // componentDidUpdate runs whenever the state or prop values change
+    // we can use the prevProps and prevState in our lifecycle methods
+    componentDidUpdate(prevProps, prevState) {
+        // make sure that the options array has actually been updated before going through the saving process
+        if (prevState.options.length !== this.state.options.length) {
+            const json = JSON.stringify(this.state.options);
+            localStorage.setItem('options', json);
+        }
+    }
+
+    // componentWillUnmount runs just before a component is removed. Can use it for clean-up
+    componentWillUnmount() {
+        console.log('unmounted')
     }
 
     handleAddOption(option) {
@@ -29,6 +55,7 @@ class IndecisionApp extends React.Component {
             return 'This option already exists';
         }
 
+        // there is a shorthand syntax for this which I've done in handleDeleteOptions but thought I'd keep the full syntax as an example too
         this.setState((prevState) => {
             return {
                 options: prevState.options.concat(option)
@@ -43,11 +70,27 @@ class IndecisionApp extends React.Component {
     }
 
     handleDeleteOptions() {
-        this.setState(() => {
-            return {
-                options: []
-            }
-        })
+        // this.setState(() => {
+        //     return {
+        //         options: []
+        //     }
+        // })
+
+        // shorthand version of setState for when you're only modifying one thing
+        // it's almost like shorthand arrow functions BUT with the arrow functions it's `=> { stuff }`
+        // in JS `{}` also denotes an object but if we do `=> { stuff }` then that represents a function body NOT an object
+        // so instead we do `=> ({ object stuff })`. The brackets wrap around the object so that the {} is actually seen as an object
+        this.setState(() => ({options: []}));
+    }
+
+    handleDeleteOption(optionToRemove) {
+        // this is the same shorthand as before but on multiple lines instead of one
+        // the main difference between this and full syntax is that we throw away the return, we just wrap the object {} in brackets ()
+        this.setState((prevState) => ({
+            // using .filter to remove the option we can't rid of
+            options: prevState.options.filter((option) => optionToRemove !== option)
+        }));
+
     }
 
     render() {
@@ -64,11 +107,17 @@ class IndecisionApp extends React.Component {
                 <Options
                     options={this.state.options}
                     handleDeleteOptions={this.handleDeleteOptions}
+                    handleDeleteOption={this.handleDeleteOption}
                 />
                 <AddOption handleAddOption={this.handleAddOption}/>
             </div>
         );
     }
+}
+
+// setting up default props for a class-based component
+IndecisionApp.defaultProps = {
+    options: []
 }
 
 const Header = (props) => {
@@ -78,9 +127,16 @@ const Header = (props) => {
     return (
         <div>
             <h1>{props.title}</h1>
-            <h2>{props.subtitle}</h2>
+            {props.subtitle && <h2>{props.subtitle}</h2>}
         </div>
     )
+}
+
+// S5:Ch41 - Default Props
+// we can give React Components default props values (whether it's functional or class component)
+// then if a value for that prop isn't passed in when the component is called, this value is used
+Header.defaultProps = {
+    title: 'Default Title'
 }
 
 const Action = (props) => {
@@ -125,7 +181,13 @@ const Options = (props) => {
             <button onClick={props.handleDeleteOptions}>Remove All</button>
             <p>{props.options.length}</p>
             {
-                props.options.map((option) => <Option key={option} optionText={option}/>)
+                props.options.map((option) => (
+                    <Option
+                        key={option}
+                        optionText={option}
+                        handleDeleteOption={props.handleDeleteOption}
+                    />
+                ))
             }
         </div>
     );
@@ -135,6 +197,18 @@ const Option = (props) => {
     return (
         <div>
             {props.optionText}
+            {/* done this arrow function in onClick because otherwise we'd be passing the `e` events argument up
+                e.g. we couldn't do onClick={props.handleDeleteOption(props.optionText)}
+                this arrow function allows us to pass the optionText argument through when handleDeleteOption is called through onClick
+            */}
+            <button
+
+                onClick={(e) => {
+                    props.handleDeleteOption(props.optionText);
+                }}
+            >
+                Remove
+            </button>
         </div>
     );
 }

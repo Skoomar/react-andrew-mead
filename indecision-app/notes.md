@@ -1,6 +1,10 @@
-#Notes for Section 3
+# Notes for Andrew Mead's Complete React Developer Course (w/ Hooks and Redux)
+https://www.udemy.com/course/react-2nd-edition
 
-## Set-up stuff
+##Section 3
+
+
+###Set-up stuff
 - install node and yarn using whatever
 - using `-g` on `npm install` will install it globally (i.e. not just to this project)
  
@@ -37,3 +41,33 @@
     - The command above creates the scripts/app.js from the output of babel reading src/app.js
   - `--watch` flag sets babel to monitor any changes made to src/app.js and update the scripts/app.js as soon as changes are made
     - so you don't have to keep running this command every time you make a change (as long that --watch command is running)
+
+##Section 5
+
+###React Dev Tools
+- React DevTools plugin available for Chrome and Firefox
+- when running in development (not prod), open the console and to the right should be two tabs
+  - `Components` and `Profiler`
+- can use to see info about the components you have
+  - e.g. their props & state
+  - Can edit these values to see the change immediately
+- Can search the name of your component to see them in isolation and focus on debugging them
+- You'll see the `$r` sign on components you're clicked on
+  - whatever component you currently have selected can be accessed from the console by typing $r
+    - then you can see all the stuff to do with that component
+
+###localStorage
+- Can use localStorage in the console on a React webpage
+  - also useful to use it in lifecycle methods to save/load data locally
+- can be used as a simple database mechanism for testing
+- in the console can do
+  - `localStorage.setItem('item')`
+  - `localStorage.getItem('item')`
+  - `localStorage.removeItem('item')`
+- This data persists through page loads
+  - so even if you refresh, the data will still be there
+- Note: this only works with strings, can't directly put numbers or arrays
+  - to work with nums and arrays, use JSON
+  - use `const json = JSON.stringify()` to convert your data to JSON
+  - then `JSON.parse(json)` to get the JSON object
+  - 

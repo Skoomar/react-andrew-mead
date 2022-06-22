@@ -26,16 +26,51 @@ var IndecisionApp = function (_React$Component) {
         var _this = _possibleConstructorReturn(this, (IndecisionApp.__proto__ || Object.getPrototypeOf(IndecisionApp)).call(this, props));
 
         _this.handleDeleteOptions = _this.handleDeleteOptions.bind(_this);
+        _this.handleDeleteOption = _this.handleDeleteOption.bind(_this);
         _this.handlePick = _this.handlePick.bind(_this);
         _this.handleAddOption = _this.handleAddOption.bind(_this);
 
         _this.state = {
-            options: []
+            // set options to use defaultProps. If a value isn't passed in for options when IndecisionApp is called, default value is used
+            options: props.options
         };
         return _this;
     }
 
+    // S5:Ch44 - Lifecycle Methods - methods that run at certain events in a component's life
+    // https://reactjs.org/docs/react-component.html - lifecycle methods and other info
+    // Note: these are ONLY available for class-based components.
+    // Functional components don't have these (but they are more efficient for it because they don't have to manage any lifecycle and keep running these methods at certain events)
+    // componentDidMount - runs when the component is rendered to the screen
+
+
     _createClass(IndecisionApp, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            console.log('mounted');
+        }
+
+        // componentDidUpdate runs whenever the state or prop values change
+        // we can use the prevProps and prevState in our lifecycle methods
+
+    }, {
+        key: 'componentDidUpdate',
+        value: function componentDidUpdate(prevProps, prevState) {
+            // make sure that the options array has actually been updated before going through the saving process
+            if (prevState.options.length !== this.state.options.length) {
+                var json = JSON.stringify(this.state.options);
+                localStorage.setItem('options', json);
+            }
+        }
+
+        // componentWillUnmount runs just before a component is removed. Can use it for clean-up
+
+    }, {
+        key: 'componentWillUnmount',
+        value: function componentWillUnmount() {
+            console.log('unmounted');
+        }
+    }, {
         key: 'handleAddOption',
         value: function handleAddOption(option) {
             // some validation of the option that has been passed in
@@ -47,6 +82,7 @@ var IndecisionApp = function (_React$Component) {
                 return 'This option already exists';
             }
 
+            // there is a shorthand syntax for this which I've done in handleDeleteOptions but thought I'd keep the full syntax as an example too
             this.setState(function (prevState) {
                 return {
                     options: prevState.options.concat(option)
@@ -63,9 +99,31 @@ var IndecisionApp = function (_React$Component) {
     }, {
         key: 'handleDeleteOptions',
         value: function handleDeleteOptions() {
+            // this.setState(() => {
+            //     return {
+            //         options: []
+            //     }
+            // })
+
+            // shorthand version of setState for when you're only modifying one thing
+            // it's almost like shorthand arrow functions BUT with the arrow functions it's `=> { stuff }`
+            // in JS `{}` also denotes an object but if we do `=> { stuff }` then that represents a function body NOT an object
+            // so instead we do `=> ({ object stuff })`. The brackets wrap around the object so that the {} is actually seen as an object
             this.setState(function () {
+                return { options: [] };
+            });
+        }
+    }, {
+        key: 'handleDeleteOption',
+        value: function handleDeleteOption(optionToRemove) {
+            // this is the same shorthand as before but on multiple lines instead of one
+            // the main difference between this and full syntax is that we throw away the return, we just wrap the object {} in brackets ()
+            this.setState(function (prevState) {
                 return {
-                    options: []
+                    // using .filter to remove the option we can't rid of
+                    options: prevState.options.filter(function (option) {
+                        return optionToRemove !== option;
+                    })
                 };
             });
         }
@@ -85,7 +143,8 @@ var IndecisionApp = function (_React$Component) {
                 }),
                 React.createElement(Options, {
                     options: this.state.options,
-                    handleDeleteOptions: this.handleDeleteOptions
+                    handleDeleteOptions: this.handleDeleteOptions,
+                    handleDeleteOption: this.handleDeleteOption
                 }),
                 React.createElement(AddOption, { handleAddOption: this.handleAddOption })
             );
@@ -94,6 +153,13 @@ var IndecisionApp = function (_React$Component) {
 
     return IndecisionApp;
 }(React.Component);
+
+// setting up default props for a class-based component
+
+
+IndecisionApp.defaultProps = {
+    options: []
+};
 
 var Header = function Header(props) {
     // React Components have `props`. This an array of key-value pairs of any attributes which
@@ -107,12 +173,19 @@ var Header = function Header(props) {
             null,
             props.title
         ),
-        React.createElement(
+        props.subtitle && React.createElement(
             'h2',
             null,
             props.subtitle
         )
     );
+};
+
+// S5:Ch41 - Default Props
+// we can give React Components default props values (whether it's functional or class component)
+// then if a value for that prop isn't passed in when the component is called, this value is used
+Header.defaultProps = {
+    title: 'Default Title'
 };
 
 var Action = function Action(props) {
@@ -167,7 +240,11 @@ var Options = function Options(props) {
             props.options.length
         ),
         props.options.map(function (option) {
-            return React.createElement(Option, { key: option, optionText: option });
+            return React.createElement(Option, {
+                key: option,
+                optionText: option,
+                handleDeleteOption: props.handleDeleteOption
+            });
         })
     );
 };
@@ -176,7 +253,17 @@ var Option = function Option(props) {
     return React.createElement(
         'div',
         null,
-        props.optionText
+        props.optionText,
+        React.createElement(
+            'button',
+            {
+
+                onClick: function onClick(e) {
+                    props.handleDeleteOption(props.optionText);
+                }
+            },
+            'Remove'
+        )
     );
 };
 
