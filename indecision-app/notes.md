@@ -70,4 +70,35 @@ https://www.udemy.com/course/react-2nd-edition
   - to work with nums and arrays, use JSON
   - use `const json = JSON.stringify()` to convert your data to JSON
   - then `JSON.parse(json)` to get the JSON object
-  - 
+
+##Section 6
+
+###Webpack
+- "A module bundler for modern JS apps"
+- Uses of Webpack
+  - Helps to organise our JS
+    - When we run Webpack, it returns a single JS file back - called the `bundle`
+    - This bundle contains everything our app needs to run
+      - the dependencies
+      - and the application code
+    - So we only need to put one `<script>` tag in the HTML to the bundle
+      - instead of having to put a <script> for every JS file
+      - Having to make all those requests to multiple files can slow your app a lot, so good to have it all in one
+  - Webpack will also run Babel for us, we don't have to keep running that command we've been using so far
+
+###Global Modules
+- You should generally avoid using global modules
+  - yes you can install your modules globally to your PC but then the local dependencies (for your project) aren't there for anyone else to see
+  - they won't be in the package.json file for other people to use to get the right dependencies to run your app
+  - if you use local dependencies instead, you have freedom of using different versions for different apps
+- you can remove the global dependencies used so far in the course with:
+  - `npm uninstall -g babel-cli live-server`
+  - or if you used yarn to install stuff, use this `yarn global remove` to remove every global dependency
+- install babel-cli and live-server locally with `npm install babel-cli live-server`
+- Local dependencies will be in your package.json
+- You won't be able to run these dependencies from the terminal (like you were with live-server etc)
+- Instead we have to set up our `scripts` inside package.json
+  - put the commands you want to run inside `scripts` using key-value pairs
+  - then run the desired script using `npm run <script-name>`
+    - (or `yarn run <script-name` if you're using yarn)
+
