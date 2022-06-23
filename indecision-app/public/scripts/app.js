@@ -47,7 +47,19 @@ var IndecisionApp = function (_React$Component) {
     _createClass(IndecisionApp, [{
         key: 'componentDidMount',
         value: function componentDidMount() {
-            console.log('mounted');
+            // catch the error if the JSON passed in is invalid, causing JSON.parse() to throw error
+            try {
+                var json = localStorage.getItem('options');
+                var options = JSON.parse(json);
+
+                if (options) {
+                    this.setState(function () {
+                        return { options: options };
+                    });
+                }
+            } catch (e) {
+                // if JSON data is invalid, do nothing
+            }
         }
 
         // componentDidUpdate runs whenever the state or prop values change
@@ -234,10 +246,10 @@ var Options = function Options(props) {
             { onClick: props.handleDeleteOptions },
             'Remove All'
         ),
-        React.createElement(
+        props.options.length === 0 && React.createElement(
             'p',
             null,
-            props.options.length
+            'Please add an option to get started'
         ),
         props.options.map(function (option) {
             return React.createElement(Option, {
@@ -257,7 +269,6 @@ var Option = function Option(props) {
         React.createElement(
             'button',
             {
-
                 onClick: function onClick(e) {
                     props.handleDeleteOption(props.optionText);
                 }
@@ -295,7 +306,11 @@ var AddOption = function (_React$Component2) {
                 // can put the return all on one line as you're only updating one thing. common to do this with error handling state
                 return { error: error };
             });
-            e.target.elements.option.value = '';
+
+            // if there is an error, don't wipe the textbox so the user has another chance to re-submit
+            if (!error) {
+                e.target.elements.option.value = '';
+            }
         }
     }, {
         key: 'render',

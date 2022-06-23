@@ -27,7 +27,17 @@ class IndecisionApp extends React.Component {
     // Functional components don't have these (but they are more efficient for it because they don't have to manage any lifecycle and keep running these methods at certain events)
     // componentDidMount - runs when the component is rendered to the screen
     componentDidMount() {
-        console.log('mounted')
+        // catch the error if the JSON passed in is invalid, causing JSON.parse() to throw error
+        try {
+            const json = localStorage.getItem('options');
+            const options = JSON.parse(json);
+
+            if (options) {
+                this.setState(() => ({ options }));
+            }
+        } catch (e) {
+            // if JSON data is invalid, do nothing
+        }
     }
 
     // componentDidUpdate runs whenever the state or prop values change
@@ -179,7 +189,7 @@ const Options = (props) => {
         <div>
             {/* bind handleRemoveAll to this class so it can use the props that were handed down here*/}
             <button onClick={props.handleDeleteOptions}>Remove All</button>
-            <p>{props.options.length}</p>
+            {props.options.length === 0 && <p>Please add an option to get started</p>}
             {
                 props.options.map((option) => (
                     <Option
@@ -202,7 +212,6 @@ const Option = (props) => {
                 this arrow function allows us to pass the optionText argument through when handleDeleteOption is called through onClick
             */}
             <button
-
                 onClick={(e) => {
                     props.handleDeleteOption(props.optionText);
                 }}
@@ -231,9 +240,13 @@ class AddOption extends React.Component {
         this.setState(() => {
             // if you are setting state with a variable that has the same name as the state attribute, you can just put that name there instead of typing `error: error`
             // can put the return all on one line as you're only updating one thing. common to do this with error handling state
-            return {error}
+            return { error }
         })
-        e.target.elements.option.value = '';
+
+        // if there is an error, don't wipe the textbox so the user has another chance to re-submit
+        if (!error) {
+            e.target.elements.option.value = '';
+        }
     }
 
     render() {
