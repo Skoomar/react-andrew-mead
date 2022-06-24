@@ -102,3 +102,18 @@ https://www.udemy.com/course/react-2nd-edition
   - then run the desired script using `npm run <script-name>`
     - (or `yarn run <script-name` if you're using yarn)
 
+###Configuring Webpack
+- install Webpack with `npm install webpack@3.1.0` (version used for this course)
+- in your package.json scripts, put one `"build": "webpack --watch"`
+  - this will run webpack which will run the bundle and deal with babel without us having to worry about it
+- you also need to create a `webpack.config.js` file in the project's root folder
+  - in this file we need to tell webpack two things
+    - the entry point for our application: this is the app.js file which webpack will build the bundle from
+    - the output file: where we want webpack to output the bundle file
+- then use `node webpack.config.js` to configure Webpack with the properties you specified
+- now webpack is set up to run using your `npm/yarn run build` (or whatever you named the script)
+  - this command will always output a hash which you can use to verify the integrity of your build
+  - and the webpack version
+  - and the time taken to do everything
+  - the bundle.js file and its size
+  - the app.js file and size
