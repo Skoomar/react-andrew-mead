@@ -3,7 +3,6 @@ https://www.udemy.com/course/react-2nd-edition
 
 ##Section 3
 
-
 ###Set-up stuff
 - install node and yarn using whatever
 - using `-g` on `npm install` will install it globally (i.e. not just to this project)
@@ -101,6 +100,21 @@ https://www.udemy.com/course/react-2nd-edition
   - put the commands you want to run inside `scripts` using key-value pairs
   - then run the desired script using `npm run <script-name>`
     - (or `yarn run <script-name` if you're using yarn)
+- To set up Babel to run with Webpack:
+  - `npm install babel-core babel-loader`
+    - babel-cli which we've been using so far is just for CLI (as you can imagine)
+    - babel-core is for use with things like webpack
+    - babel-loader allows you to tell Webpack how to run Babel when it sees certain files
+  - modify webpack.config.js using `module.rules`
+    - add a rule to specify babel-loader as the loader
+    - add a rule for 'test' to specify which file types you actually want to run the loader on
+      - we only want it to run on JS files, nothing else
+      - use a regular expression to set it to only run on .js files
+    - use exclude rule to stop Babel from running on undesired things
+      - e.g. exclude node_modules directory
+  - need to also add a config file for Babel: .babelrc
+    - you'll notice the babel CLI command we've been using so far has a lot of stuff in it
+    - if we want that same configuration when running from babel-core/loader, we need to set it up in babelrc
 
 ###Configuring Webpack
 - install Webpack with `npm install webpack@3.1.0` (version used for this course)
@@ -117,3 +131,31 @@ https://www.udemy.com/course/react-2nd-edition
   - and the time taken to do everything
   - the bundle.js file and its size
   - the app.js file and size
+
+###Imports & Exports
+- there are two types of exports: named exports & default exports
+
+
+- Named exports must be specifically named when you import them
+  - must use their exact name when you import them
+  - and must be imported inside curly brackets: e.g. `import { <export-name> } from 'utils.js'`
+  - to set something to be a named export you can either:
+    - at the bottom of the file, put `export { thingy }`
+    - or wherever you define the function/class/etc do `export const thingy = () =>...`
+
+
+- Default export is the thing that is imported by default if you import from a file
+  - can only have one default export from a file
+  - you also import a default export slightly differently to a named export
+  - has to be imported outside of the curly braces
+    - e.g. `import subtract from 'utils.js'`
+    - or `import subtract, { <named-export> } from 'utils.js'`
+    - you can also just name default exports whatever you want when you import them, don't have to use the exact same name
+      - e.g. `import blah from 'utils.js'` will import `subtract` (as long as you've set subtract as the default export)
+      - kind of like Python's `import as` (but slightly different)
+    - note: if you have subtract as the default export, import { subtract } from 'utils.js' will get ReferenceError because subtract is not a named export. It is just the default export
+  - to export something as default export you can either:
+    - at bottom of the file: `export { thingy as default, ... }`
+    - AFTER you define the function/class/etc `export default thingy;`
+      - or just export the function directly without defining it first: `export default () => ...;`
+      

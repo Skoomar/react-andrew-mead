@@ -1,7 +1,5 @@
-import './utils'
-import {square, add, minus} from "./utils";
+import React from "react";
+import ReactDOM from 'react-dom';
 
-console.log('app running')
-console.log(square(4));
-console.log(add(5,1))
-console.log(minus(4,1));
+const template = <p>YAY</p>
+ReactDOM.render(template, document.getElementById('app'))

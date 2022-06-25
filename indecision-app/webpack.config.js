@@ -14,5 +14,12 @@ module.exports = {
         // You can use __dirname to get the absolute path of this project, then if desired, use path.join() to concatenate any more specific directory within this project
         path: path.join(__dirname, 'public'),
         filename: 'bundle.js'
+    },
+    module: {
+        rules: [{
+            loader: 'babel-loader',
+            test: /\.js$/,
+            exclude: /node_modules/
+        }]
     }
 }
