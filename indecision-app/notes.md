@@ -72,18 +72,6 @@ https://www.udemy.com/course/react-2nd-edition
 
 ##Section 6
 
-###Webpack
-- "A module bundler for modern JS apps"
-- Uses of Webpack
-  - Helps to organise our JS
-    - When we run Webpack, it returns a single JS file back - called the `bundle`
-    - This bundle contains everything our app needs to run
-      - the dependencies
-      - and the application code
-    - So we only need to put one `<script>` tag in the HTML to the bundle
-      - instead of having to put a <script> for every JS file
-      - Having to make all those requests to multiple files can slow your app a lot, so good to have it all in one
-  - Webpack will also run Babel for us, we don't have to keep running that command we've been using so far
 
 ###Global Modules
 - You should generally avoid using global modules
@@ -116,25 +104,8 @@ https://www.udemy.com/course/react-2nd-edition
     - you'll notice the babel CLI command we've been using so far has a lot of stuff in it
     - if we want that same configuration when running from babel-core/loader, we need to set it up in babelrc
 
-###Configuring Webpack
-- install Webpack with `npm install webpack@3.1.0` (version used for this course)
-- in your package.json scripts, put one `"build": "webpack --watch"`
-  - this will run webpack which will run the bundle and deal with babel without us having to worry about it
-- you also need to create a `webpack.config.js` file in the project's root folder
-  - in this file we need to tell webpack two things
-    - the entry point for our application: this is the app.js file which webpack will build the bundle from
-    - the output file: where we want webpack to output the bundle file
-- then use `node webpack.config.js` to configure Webpack with the properties you specified
-- now webpack is set up to run using your `npm/yarn run build` (or whatever you named the script)
-  - this command will always output a hash which you can use to verify the integrity of your build
-  - and the webpack version
-  - and the time taken to do everything
-  - the bundle.js file and its size
-  - the app.js file and size
-
 ###Imports & Exports
 - there are two types of exports: named exports & default exports
-
 
 - Named exports must be specifically named when you import them
   - must use their exact name when you import them
@@ -158,4 +129,59 @@ https://www.udemy.com/course/react-2nd-edition
     - at bottom of the file: `export { thingy as default, ... }`
     - AFTER you define the function/class/etc `export default thingy;`
       - or just export the function directly without defining it first: `export default () => ...;`
-      
+
+
+###Webpack
+- "A module bundler for modern JS apps"
+- Uses of Webpack
+  - Helps to organise our JS
+    - When we run Webpack, it returns a single JS file back - called the `bundle`
+    - This bundle contains everything our app needs to run
+      - the dependencies
+      - and the application code
+    - So we only need to put one `<script>` tag in the HTML to the bundle
+      - instead of having to put a <script> for every JS file
+      - Having to make all those requests to multiple files can slow your app a lot, so good to have it all in one
+  - Webpack will also run Babel for us, we don't have to keep running that command we've been using so far
+
+###Configuring Webpack
+- install Webpack with `npm install webpack@3.1.0` (version used for this course)
+- in your package.json scripts, put one `"build": "webpack"`
+  - this will run webpack which will run the bundle and deal with babel without us having to worry about it
+  - can also add --watch to keep it running UNLESS you're using webpack-dev-server which will do that for you anyway
+- you also need to create a `webpack.config.js` file in the project's root folder
+  - in this file we need to tell webpack two things
+    - the entry point for our application: this is the app.js file which webpack will build the bundle from
+    - the output file: where we want webpack to output the bundle file
+- then use `node webpack.config.js` to configure Webpack with the properties you specified
+- now webpack is set up to run using your `npm/yarn run build` (or whatever you named the script)
+  - this command will always output a hash which you can use to verify the integrity of your build
+  - and the webpack version
+  - and the time taken to do everything
+  - the bundle.js file and its size
+  - the app.js file and size
+
+###Webpack Source Maps
+- helps a lot for debugging React apps
+- it's not easy to read the stacktraces in the console with React apps
+  - because the app runs from the bundle.js which is massive and contains everything to do with running the app
+    - can be like tens of thousands of lines long
+  - so the stacktrace just shows that file
+- Source Maps help by telling you the exact line(s) in the file(s) where an error occurred
+- can be set up by adding a `devtool` property in webpack.js.org
+  - look at https://webpack.js.org/configuration/devtool/#root to see the different types of source maps you can put in devtool
+  - we're going to use `cheap-module-eval-source-map` for now
+- Note: every time you change your webpack config, you need to restart the build
+
+###Webpack Dev Server
+- similar to live-server
+- has some nice features
+- need to set it up in webpack.config.json
+  - add a `devServer` property and set the attributes you want
+  - need to give the path to the public/ folder in `contentBase`
+  - then in package.json, add `"dev-server": "webpack-dev-server"`
+- note that using webpack-dev-server, no bundle.js file is actually saved to your project
+  - dev-server will have a bundle.js loaded in memory but not actually save anything because that's slow, so keeps it quick
+  - so you can delete the bundle.js file currently in public/ as it isn't being used anymore
+  - BUT if you start putting stuff into production then that requires a bundle.js file to be present somewhere
+    - you can create that using `npm run build` if you need it
