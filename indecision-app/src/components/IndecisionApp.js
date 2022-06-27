@@ -3,12 +3,14 @@ import Header from "./Header";
 import Action from "./Action";
 import Options from "./Options";
 import AddOption from "./AddOption";
+import OptionModal from "./OptionModal";
 
 class IndecisionApp extends React.Component {
     // converted constructor to the transform-class-properties syntax for the props and methods
     // note lifecycle methods and render should stay as they are
     state = {
-        options: []
+        options: [],
+        selectedOption: undefined
     }
 
     handleAddOption = (option) => {
@@ -28,7 +30,11 @@ class IndecisionApp extends React.Component {
     handlePick = () => {
         const randomNum = Math.floor(Math.random() * this.state.options.length);
         const option = this.state.options[randomNum];
-        alert(option);
+        this.setState(() => ({ selectedOption: option }))
+    }
+
+    handleClearSelectedOption = () => {
+        this.setState(() => ({ selectedOption: undefined }))
     }
 
     handleDeleteOptions = () => {
@@ -39,7 +45,6 @@ class IndecisionApp extends React.Component {
         this.setState((prevState) => ({
             options: prevState.options.filter((option) => optionToRemove !== option)
         }));
-
     }
 
     componentDidMount() {
@@ -82,6 +87,7 @@ class IndecisionApp extends React.Component {
                     handleDeleteOption={this.handleDeleteOption}
                 />
                 <AddOption handleAddOption={this.handleAddOption}/>
+                <OptionModal selectedOption={this.state.selectedOption} handleClearSelectedOption={this.handleClearSelectedOption}/>
             </div>
         );
     }

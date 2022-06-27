@@ -1887,6 +1887,11 @@
     "md5.js" "^1.3.4"
     "safe-buffer" "^5.1.1"
 
+"exenv@^1.2.0":
+  "integrity" "sha512-Z+ktTxTwv9ILfgKCk32OX3n/doe+OcLTRtqK9pcL+JsP3J1/VW8Uvl4ZjLlKqeW4rzK4oesDOGMEMRIZqtP4Iw=="
+  "resolved" "https://registry.npmjs.org/exenv/-/exenv-1.2.2.tgz"
+  "version" "1.2.2"
+
 "expand-brackets@^0.1.4":
   "integrity" "sha512-hxx03P2dJxss6ceIeri9cmYOT4SRs3Zk3afZwWpOsRqLqprhTR8u++SlC+sFGsQr7WGFPdMF7Gjc1njDLDK6UA=="
   "resolved" "https://registry.npmjs.org/expand-brackets/-/expand-brackets-0.1.5.tgz"
@@ -3678,7 +3683,7 @@
   dependencies:
     "asap" "~2.0.3"
 
-"prop-types@^15.6.0":
+"prop-types@^15.6.0", "prop-types@^15.7.2":
   "integrity" "sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg=="
   "resolved" "https://registry.npmjs.org/prop-types/-/prop-types-15.8.1.tgz"
   "version" "15.8.1"
@@ -3788,7 +3793,7 @@
     "iconv-lite" "0.4.24"
     "unpipe" "1.0.0"
 
-"react-dom@^16.0.0":
+"react-dom@^0.14.0 || ^15.0.0 || ^16 || ^17 || ^18", "react-dom@^16.0.0":
   "integrity" "sha512-MjJdK6es/HG+kcjpa6eRhXrusL4hh4omy/036mI7uykjredUkk8Z0E6FzJW+g3JBR2bxov8AQxiE71WDlja6dw=="
   "resolved" "https://registry.npmjs.org/react-dom/-/react-dom-16.0.0.tgz"
   "version" "16.0.0"
@@ -3803,7 +3808,22 @@
   "resolved" "https://registry.npmjs.org/react-is/-/react-is-16.13.1.tgz"
   "version" "16.13.1"
 
-"react@^16.0.0", "react@^16.0.0-beta.5":
+"react-lifecycles-compat@^3.0.0":
+  "integrity" "sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA=="
+  "resolved" "https://registry.npmjs.org/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz"
+  "version" "3.0.4"
+
+"react-modal@^3.15.1":
+  "integrity" "sha512-duB9bxOaYg7Zt6TMFldIFxQRtSP+Dg3F1ZX3FXxSUn+3tZZ/9JCgeAQKDg7rhZSAqopq8TFRw3yIbnx77gyFTw=="
+  "resolved" "https://registry.npmjs.org/react-modal/-/react-modal-3.15.1.tgz"
+  "version" "3.15.1"
+  dependencies:
+    "exenv" "^1.2.0"
+    "prop-types" "^15.7.2"
+    "react-lifecycles-compat" "^3.0.0"
+    "warning" "^4.0.3"
+
+"react@^0.14.0 || ^15.0.0 || ^16 || ^17 || ^18", "react@^16.0.0", "react@^16.0.0-beta.5":
   "integrity" "sha512-9lay736NuQpSpNwkxcqHOD/Jswpi/C5C7TYqHU9Xi19OEM+3LEkULYsUc3E65W+Sv3AyoVi2ZovCuXi2Ifz1MQ=="
   "resolved" "https://registry.npmjs.org/react/-/react-16.0.0.tgz"
   "version" "16.0.0"
@@ -4687,6 +4707,13 @@
   "integrity" "sha512-2ham8XPWTONajOR0ohOKOHXkm3+gaBmGut3SRuu75xLd/RRaY6vqgh8NBYYk7+RW3u5AtzPQZG8F10LHkl0lAQ=="
   "resolved" "https://registry.npmjs.org/vm-browserify/-/vm-browserify-1.1.2.tgz"
   "version" "1.1.2"
+
+"warning@^4.0.3":
+  "integrity" "sha512-rpJyN222KWIvHJ/F53XSZv0Zl/accqHR8et1kpaMTD/fLCRxtV8iX8czMzY7sVZupTI3zcUTg8eycS2kNF9l6w=="
+  "resolved" "https://registry.npmjs.org/warning/-/warning-4.0.3.tgz"
+  "version" "4.0.3"
+  dependencies:
+    "loose-envify" "^1.0.0"
 
 "watchpack-chokidar2@^2.0.1":
   "integrity" "sha512-nCFfBIPKr5Sh61s4LPpy1Wtfi0HE8isJ3d2Yb5/Ppw2P2B/3eVSEBjKfN0fmHJSK14+31KwMKmcrzs2GM4P0Ww=="

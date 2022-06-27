@@ -206,3 +206,8 @@ https://www.udemy.com/course/react-2nd-edition
   - like nested HTML
 - This JSX will then be available inside that component's props
   - using `props.children`
+
+###React Modal
+- https://github.com/reactjs/react-modal
+- a third party component
+- like a pop-up alert but looks nicer and more features
