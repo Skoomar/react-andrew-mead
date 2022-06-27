@@ -185,3 +185,16 @@ https://www.udemy.com/course/react-2nd-edition
   - so you can delete the bundle.js file currently in public/ as it isn't being used anymore
   - BUT if you start putting stuff into production then that requires a bundle.js file to be present somewhere
     - you can create that using `npm run build` if you need it
+
+###Babel Transform Class Properties
+- https://babeljs.io/docs/en/babel-plugin-proposal-class-properties 
+- can use this to simplify writing classes
+- You can write classes in the simple ES6 format and then Babel with this plugin will convert it to ES5 at runtime
+  - don't have to write out this.<attr-name> and do all that constructor stuff
+  - don't have to .bind(this) all the methods
+  - the plugin does it all for you
+  - note: methods must be written in arrow format for it to work (i think)
+  - note: lifecycle methods and the render methods should not be changed to arrow format
+- install using the instructions
+  - `npm install babel-plugin-transform-class-properties` (the official docs also have --save-dev)
+  - then add the plugin in babel.rc

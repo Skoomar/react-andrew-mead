@@ -1,15 +1,12 @@
 import React from "react";
 
 class AddOption extends React.Component {
-    constructor(props) {
-        super(props);
-        this.handleAddOption = this.handleAddOption.bind(this);
-        this.state = {
-            error: undefined
-        }
+    // use the syntax for babel transform-class-properties instead of using a constructor
+    state = {
+        error: undefined
     }
 
-    handleAddOption(e) {
+    handleAddOption = (e) => {
         e.preventDefault();
 
         const option = e.target.elements.option.value.trim();
