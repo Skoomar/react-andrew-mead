@@ -1,7 +1,7 @@
 # Notes for Andrew Mead's Complete React Developer Course (w/ Hooks and Redux)
 https://www.udemy.com/course/react-2nd-edition
 
-##Section 3
+##Section 3 - Hello React
 
 ###Set-up stuff
 - install node and yarn using whatever
@@ -41,7 +41,7 @@ https://www.udemy.com/course/react-2nd-edition
   - `--watch` flag sets babel to monitor any changes made to src/app.js and update the scripts/app.js as soon as changes are made
     - so you don't have to keep running this command every time you make a change (as long that --watch command is running)
 
-##Section 5
+##Section 5 - Stateless Functional Components
 
 ###React Dev Tools
 - React DevTools plugin available for Chrome and Firefox
@@ -70,7 +70,7 @@ https://www.udemy.com/course/react-2nd-edition
   - use `const json = JSON.stringify()` to convert your data to JSON
   - then `JSON.parse(json)` to get the JSON object
 
-##Section 6
+##Section 6 - Webpack
 
 
 ###Global Modules
@@ -198,3 +198,11 @@ https://www.udemy.com/course/react-2nd-edition
 - install using the instructions
   - `npm install babel-plugin-transform-class-properties` (the official docs also have --save-dev)
   - then add the plugin in babel.rc
+
+##Section 7 - Using Third Party Components
+
+###Built-In Children  Props
+- You can pass JSX into a React Component by doing `<MyComponent><p>some JSX</p></MyComponent>`
+  - like nested HTML
+- This JSX will then be available inside that component's props
+  - using `props.children`
