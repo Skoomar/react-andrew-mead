@@ -211,3 +211,40 @@ https://www.udemy.com/course/react-2nd-edition
 - https://github.com/reactjs/react-modal
 - a third party component
 - like a pop-up alert but looks nicer and more features
+
+##Section 8 - Styling React
+- we need to set our project so that Webpack can use CSS/SCSS
+  - install css-loader https://www.npmjs.com/package/css-loader 
+    - allows webpack to load in our CSS assets by converting them to JS
+  - and the style-loader https://www.npmjs.com/package/style-loader
+    - takes the JS that css-loader outputs and adds it to the DOM by injecting a style tag
+- in webpack.config.js, in module.rules add a test for .css files and a `use` array to add the style-loader and css-loader
+  - `use` is like the `loader` option we used for babel but allows you to use multiple loaders by putting them in the use array
+
+###SCSS
+- https://sass-lang.com/
+- is a superset of CSS which adds additional functionality
+- it's compiled down to regular CSS so browsers can understand it
+  - so we need to set this up
+  - need to install sass-loader and node-sass
+  - add sass-loader to the css loaders in webpack.config
+- with SCSS we can split our styles into different files and import them in the main styles.scss
+- partial scss files must have an underscore at the start
+  - e.g. _base.scss
+  - these are then imported in the main style file
+    - but when importing them, we don't put the underscore or the file extension
+    - e.g. _base.scss would be imported like `@import './base/base`
+
+####rem
+- like CSS **px** but more accessible. 
+- they are based off the font size of the root HTML element (16px by default)
+- allows accessibility devices to scale it however is best for them
+- if you're curious about how big the **rem** has been rendered on your device, look in the console and look at computed styles
+- rems do make it more complicated to think about how big things might be on your screen
+  - with pixels it's easier, but with rems we have to think about the conversion process
+  - e.g. if you want a 22.2pt font, how many rems is that - it's complicated to calculate
+  - one solution:
+    - add `html { font-size: 62.5%; }`
+    - base font-size is 16px by default, multiply that by .625, we get 10
+    - so we will be working with rems in a base 10 system, just like pixels
+    - so if we do 2.2rem that can translate easily to 22px

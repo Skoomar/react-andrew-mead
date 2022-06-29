@@ -1,0 +1,27 @@
+.header {
+  background: #20222b;
+  color: white;
+  margin-bottom: 4.8rem;
+  padding: 1.6rem 0;
+
+  // you can nest styles. so this would make any h1 inside a .header, this style.
+  // but this nesting is messy so do it the way done below using BEM instead
+  //h1 {
+  //  color: red;
+  //}
+}
+
+// BEM: Block Element Modifier
+// block is the core building block, something big like the header
+// elements are things that go inside that block, e.g. the title
+.header__title {
+  font-size: 3.2rem;
+  margin: 0;
+}
+
+.header__subtitle {
+  color: #a5afd7;
+  font-size: 1.6rem;
+  font-weight: 500;
+  margin: 0;
+}

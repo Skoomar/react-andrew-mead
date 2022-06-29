@@ -91,6 +91,6 @@ class IndecisionApp extends React.Component {
             </div>
         );
     }
-};
+}
 
 export default IndecisionApp;
