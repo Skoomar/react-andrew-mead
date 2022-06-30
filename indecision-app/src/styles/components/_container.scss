@@ -1,0 +1,8 @@
+// create container which centres elements inside it
+.container {
+  // to centre things properly, we first need to define a max-width otherwise it'll just do it based off the whole width of the page
+  max-width: 60rem;
+  // auto used so if the browser is e.g. 70rems wide then the remaining 10rems (from the max-width) will be distributed evenly, 5 on each side
+  margin: 0 auto;
+  padding: 0 $m-size;
+}

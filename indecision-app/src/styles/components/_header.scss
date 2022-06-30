@@ -1,8 +1,8 @@
 .header {
-  background: #20222b;
+  background: $off-black;
   color: white;
-  margin-bottom: 4.8rem;
-  padding: 1.6rem 0;
+  margin-bottom: $xl-size;
+  padding: $m-size 0;
 
   // you can nest styles. so this would make any h1 inside a .header, this style.
   // but this nesting is messy so do it the way done below using BEM instead
@@ -14,14 +14,16 @@
 // BEM: Block Element Modifier
 // block is the core building block, something big like the header
 // elements are things that go inside that block, e.g. the title
+// for elements of a block, the convention is to use two underscores like here
+// but if you're making a block modifier (a modified version of that block) e.g. a button that is a link, use two hyphens: button--link
 .header__title {
-  font-size: 3.2rem;
+  font-size: $l-size;
   margin: 0;
 }
 
 .header__subtitle {
-  color: #a5afd7;
-  font-size: 1.6rem;
+  color: $off-white ;
+  font-size: $m-size;
   font-weight: 500;
   margin: 0;
 }

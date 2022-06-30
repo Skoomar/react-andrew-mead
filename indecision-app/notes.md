@@ -234,6 +234,7 @@ https://www.udemy.com/course/react-2nd-edition
   - these are then imported in the main style file
     - but when importing them, we don't put the underscore or the file extension
     - e.g. _base.scss would be imported like `@import './base/base`
+- https://sass-lang.com/documentation/values/functions all SASS functions
 
 ####rem
 - like CSS **px** but more accessible. 
@@ -248,3 +249,11 @@ https://www.udemy.com/course/react-2nd-edition
     - base font-size is 16px by default, multiply that by .625, we get 10
     - so we will be working with rems in a base 10 system, just like pixels
     - so if we do 2.2rem that can translate easily to 22px
+
+###CSS Reset
+- different browsers have different default styles
+- if we don't reset the styles then your CSS will base styles around the default of the browser
+  - so the page will have different styles on different browsers
+- We use a third party library to do our CSS reset (because else we'd have to write out lots of stuff)
+- https://necolas.github.io/normalize.css/ 
+- import it in your app.js
