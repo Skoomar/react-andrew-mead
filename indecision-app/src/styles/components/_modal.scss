@@ -1,0 +1,47 @@
+// styling a third-party component
+// you can look in the console at the component to see what its CSS classes are called,
+  // then can write stuff for those classes here
+  // this is most useful for defining behaviour when the component changes state, e.g. transitioning between being open or closed
+// you can also add a className to the component and make your own styles (useful for basic/static styling like in .modal)
+
+// only target divs that are immediate descendants of the ReactModalPortal (so doesn't affect any children of the div, only the first div inside ReactModalPortal)
+.ReactModalPortal > div {
+  opacity: 0;
+}
+
+// animation to phase the modal in smoothly from transparent to opaque
+.ReactModalPortal .ReactModal__Overlay {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  transition: opacity 200ms ease-in-out;
+
+}
+
+.ReactModalPortal .ReactModal__Overlay--after-open {
+  opacity: 1;
+}
+
+.ReactModalPortal .ReactModal__Overlay--before-close {
+  opacity: 0;
+}
+
+.modal {
+  background: $light-blue;
+  color: white;
+  max-width: 30rem;
+  outline: none;
+  padding: $l-size;
+  text-align: center;
+}
+
+.modal__title {
+  margin: 0 0 $l-size 0;
+}
+
+.modal__body {
+  font-size: 2rem;
+  font-weight: 300;
+  margin: 0 0 $l-size 0;
+  word-break: break-all;
+}
