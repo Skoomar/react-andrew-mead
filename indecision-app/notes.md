@@ -257,3 +257,10 @@ https://www.udemy.com/course/react-2nd-edition
 - We use a third party library to do our CSS reset (because else we'd have to write out lots of stuff)
 - https://necolas.github.io/normalize.css/ 
 - import it in your app.js
+
+###Viewport
+- Different devices will have different resolutions etc
+- The viewport is the size of the screen being used to view the page
+- you can use developer tools in Firefox/Chrome etc to see the view for different devices/browsers
+- in index.html, use the `viewport` <meta> option to automatically size the page to fit the device
+- in your CSS, you can use @media to set different styles for different viewport sizes
