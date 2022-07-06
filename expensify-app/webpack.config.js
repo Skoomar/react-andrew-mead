@@ -32,6 +32,7 @@ module.exports = {
     },
     devtool: 'cheap-module-source-map',
     devServer: {
-        static: path.join(__dirname, 'public')
+        static: path.join(__dirname, 'public'),
+        historyApiFallback: true
     }
 }
