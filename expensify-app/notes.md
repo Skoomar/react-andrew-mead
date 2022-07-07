@@ -25,3 +25,19 @@
 - in webpack config, set historyApiFallback: true
   - this tells the dev server to handle routing via the client side code
   - stops it from making calls to the server when loading/routing to a page which has been set to be loaded client side instead
+
+###`<Link>` and `<NavLink>`
+- `<Link>`
+    - Use `<Link>` to create links to internal pages/components
+    - instead of using `<a>` tags to go to different pages within your app, use React Router's `<Link>`
+    - This avoids the full page refresh and the app sending a request to the server to get whatever page you're trying to open
+    - The page for the component you're trying to open is already on the client side so <Link> will open it from there instead of routing through the server
+    - for links to pages that are external to your app (not any of your React Components), obviously you can use `<a>` like usual
+- `<NavLink>`
+  - like `<Link>` but more customisable
+  - has things to help you style the link for different states e.g. clicked/not clicked etc
+
+###Outdated stuff from this course
+- need to put `<Route>` tags inside `<Routes>`
+- don't need to use `<Switch>` to set up a 404 page, just use `path="*"`
+- 
