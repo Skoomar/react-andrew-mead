@@ -330,4 +330,47 @@ https://www.udemy.com/course/react-2nd-edition
 
 
 ##Section 10 - Redux
-- Redux helps to manage state in your webapp
+- https://redux.js.org/
+- Redux helps to manage state in complex webapps
+  - state for the app is stored in one place instead of being passed around between components
+  - this helps to create re-usable/orthogonal components as they just rely on getting data from the state, not having to depend on other components passing them everything
+  - note: it's ok to pass props/state between apps and their direct children if there's a meaningful bond between them etc (e.g. Expenses passing some stuff to Expense)
+  - it's just we should use Redux to avoid having data being passed down long chains of components like in indecision app
+- it's for any JS Framework, not just React
+
+- Simple state vs Complex state
+  - Simple
+    - e.g. indecision app we made
+      - just had a few components
+        - IndecisionApp was the primary one, the other components e.g. Options all had their state passed down from IndecisionApp
+        - there was a direct connection to each component
+        - so you can imagine it like a tree with IndecisionApp at the top and the child components branching off from that
+    - The components are also all very closely bound
+    - very specific methods are being passed down so each component has knowledge of other components
+    - this might be ok in a simple app but in a complex one it becomes very messy
+    - it stops each component from being re-usable/orthogonal as they depend very heavily on the other component passing certain things to/from them
+    - instead we want components to just be able to pull from the overall state of the app
+  - Complex
+    - e.g. the Expensify app we're making
+      - There is no parent component to all of our primary components
+      - e.g. AddExpensePage and ExpenseDashboardPage are not children of a child component
+      - instead they're just rendered by React Router individually
+      - they have children of their own
+        - AddExpensePage has the AddExpense form component
+        - ExpenseDashboard has Expenses etc
+      - So like two separate trees
+      - how do we pass data between the two trees
+    - So there's no parent component to store all the data in to pass it down from
+    - and no connection between every single component
+    - so where do we store the data
+
+###Redux Set-up
+- ---install it with `npm install redux`---
+- Redux Toolkit is the way to do things now so instead we do `npm install @reduxjs/toolkit`
+  - this has stuff to make writing the Redux easier and is the standard way of doing it now
+  - old Redux stuff is deprecated
+  - so some things here will be different to the course
+
+###Redux Store
+- A Redux Store is where your app's state is kept
+- you usually createStore when your app starts up and then your components write to or read from that store
