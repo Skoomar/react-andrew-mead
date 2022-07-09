@@ -371,6 +371,12 @@ https://www.udemy.com/course/react-2nd-edition
   - old Redux stuff is deprecated
   - so some things here will be different to the course
 
-###Redux Store
+####Redux Store
 - A Redux Store is where your app's state is kept
 - you usually createStore when your app starts up and then your components write to or read from that store
+
+####Redux Actions
+- actions are just an object that gets sent to the Store
+- this object describes the type of action we'd like to take
+  - e.g. could have an option for incrementing, decrementing, reset value etc
+- to make a call for an action to happen, use store.dispatch()
