@@ -376,7 +376,30 @@ https://www.udemy.com/course/react-2nd-edition
 - you usually createStore when your app starts up and then your components write to or read from that store
 
 ####Redux Actions
-- actions are just an object that gets sent to the Store
+- actions are just an object that gets sent to the Store to change the value of something in the state
 - this object describes the type of action we'd like to take
   - e.g. could have an option for incrementing, decrementing, reset value etc
 - to make a call for an action to happen, use store.dispatch()
+
+#####Subscribing and Dynamic Actions
+- Subscribing
+  - subscribe is used to call a function every time the Store is modified
+  - can also use unsubscribe() to define at what point you want to stop a certain subscription in your app
+- Dynamic actions
+  - can pass in variables inside the action object which can then be used in createStore with action.<var-name>
+
+####ES6 Destructuring
+- Object destructuring
+  - say you've got an object (e.g. parsed JSON from a database query or something)
+  - then you want to use the variables inside that object
+  - you'd usually have to do something like:
+    - e.g. we have a person object. To access the name variable inside the person object we'd have to do `person.name`
+  - Destructuring parses the object and allows you to use simple variable names to refer to those values
+  - so e.g. instead of `person.name`, you can just write `name`
+  - also can use it to destruct nested objects
+- can rename variables to a different name outside the object. 
+- can set default values for if there is no var of that name in the object
+- Array destructuring
+
+####Action Generators
+- functions that return action objects
