@@ -403,3 +403,14 @@ https://www.udemy.com/course/react-2nd-edition
 
 ####Action Generators
 - functions that return action objects
+
+####Reducers
+- Reducers take the current state and the action passed in
+- we define the behaviour of our Redux Actions using reducers
+- Reducers are pure functions
+  - pure functions are functions that only use things that are directly passed into them. i.e. not using global vars
+    - their output is determined purely by their input
+    - and they don't change variables outside their scope (don't modify global vars or things outside their scope)
+- They never change state or action
+  - they do cause the state to change but they don't directly modify it themselves
+  - e.g. like doing array=[1,2,3] is a new object being assigned - it isn't directly modifying the array but array.push(5) IS directly modifying the array

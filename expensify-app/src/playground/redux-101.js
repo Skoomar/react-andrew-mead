@@ -39,9 +39,9 @@ const resetCount = () => ({
     type: 'RESET',
 })
 
-// createStore takes state and actions
-// here we've also passed a default value for state (setting count to 0)
-const store = createStore((state = {count: 0}, action) => {
+
+// Reducer
+const countReducer = (state = {count: 0}, action) => {
     // it's convention to use switch statements in createStore to deal with the actions
     switch (action.type) {
         case 'INCREMENT':
@@ -58,7 +58,11 @@ const store = createStore((state = {count: 0}, action) => {
         default:
             return state;
     }
-})
+};
+
+// createStore takes state and actions
+// here we've also passed a default value for state (setting count to 0)
+const store = createStore(countReducer);
 
 // subscribe allows you to run functions every time the Store is modified
 // unsubscribe allows you to cancel this subscription when you call unsubscribe
