@@ -414,3 +414,6 @@ https://www.udemy.com/course/react-2nd-edition
 - They never change state or action
   - they do cause the state to change but they don't directly modify it themselves
   - e.g. like doing array=[1,2,3] is a new object being assigned - it isn't directly modifying the array but array.push(5) IS directly modifying the array
+- You can have multiple reducers in your app by using combineReducers
+  - obviously you can stick everything in one but it's messy
+  - in complex apps you'll need to separate out the concerns
