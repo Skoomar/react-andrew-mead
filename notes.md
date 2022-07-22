@@ -140,7 +140,7 @@ https://www.udemy.com/course/react-2nd-edition
       - the dependencies
       - and the application code
     - So we only need to put one `<script>` tag in the HTML to the bundle
-      - instead of having to put a <script> for every JS file
+      - instead of having to put a `<script>` for every JS file
       - Having to make all those requests to multiple files can slow your app a lot, so good to have it all in one
   - Webpack will also run Babel for us, we don't have to keep running that command we've been using so far
 
@@ -417,3 +417,27 @@ https://www.udemy.com/course/react-2nd-edition
 - You can have multiple reducers in your app by using combineReducers
   - obviously you can stick everything in one but it's messy
   - in complex apps you'll need to separate out the concerns
+
+#####UUID
+- a library to randomly generate universally unique ids
+- `npm install uuid`
+
+#####ES6 Spread Operator
+- Spread op for Arrays
+  - used to concatenate arrays (can use .concat but spread op looks nicer)
+  - e.g. if we have this array
+    - `letters = ['A', 'B', 'C']`
+    - and we did `[...letters, 'D']`
+    - it would concatenate letters in that array 
+    - returns `['A', 'B', 'C', 'D']`
+- Spread op for Objects
+  - (when this course was made, spread op for objects wasn't used widely enough in mainstream JS)
+    - so Andrew had to change babel config to use it
+    - but we don't have to now
+  - use it in similar way to arrays
+    - `obj2 = {...obj1, meh: '1'}`
+  - you can override attributes of the object being spread by assigning a different value to that attribute after the object has been spread
+  - e.g. if obj1 has an attribute `age: 25`
+    - then doing `obj2 = {yeet: 1, ...obj1, age: 30}`
+    - will reassign age to 30
+    - just remember that the reassignment has to occur AFTER wherever the spread object is placed in the new object
