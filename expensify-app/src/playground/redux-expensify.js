@@ -1,6 +1,5 @@
 import {createStore, combineReducers} from "@reduxjs/toolkit";
 import {v4 as uuid} from 'uuid';
-import {act} from "react-dom/test-utils";
 
 const addExpense = (
     // destructuring way of passing parameters to action generator
@@ -132,8 +131,25 @@ const filtersReducer = (state = filtersReducerDefaultState, action) => {
 };
 
 // prints out expenses matching the current filters
-const getVisibileExpenses = (expenses, filters) => {
-   return expenses;
+// destructure the filters object
+const getVisibleExpenses = (expenses, { text, sortBy, startDate, endDate }) => {
+   return expenses.filter((expense) => {
+       const startDateMatch = typeof startDate !== 'number' || expense.createdAt >= startDate;
+       const endDateMatch = typeof endDate !== 'number' || expense.createdAt <= endDate;
+       const textMatch = expense.description.toLowerCase().includes(text.toLowerCase());
+
+       return startDateMatch && endDateMatch && textMatch;
+   // use Array.prototype.sort to sort the expense data returned above. Need to provide our own compare function so that .sort knows how to sort our data
+   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
+   }).sort((a, b) => {
+      if (sortBy === 'date') {
+          // custom compare functions must return a 1 or -1 to let .sort know which item to put first
+          return a.createdAt < b.createdAt ? 1 : -1;
+      }
+      else if (sortBy === 'amount') {
+          return a.amount < b.amount ? 1 : -1;
+      }
+   });
 }
 
 const store = createStore(
@@ -145,41 +161,41 @@ const store = createStore(
 
 store.subscribe(() => {
     const state = store.getState();
-    const visibleExpenses = getVisibileExpenses(state.expenses, state.filters);
+    const visibleExpenses = getVisibleExpenses(state.expenses, state.filters);
     console.log(visibleExpenses);
     // console.log(store.getState());
 })
 
-const expenseOne = store.dispatch(addExpense({ description: 'Rent', amount: 100 }));
-const expenseTwo = store.dispatch(addExpense({ description: 'Coffee', amount: 100 }));
+const expenseOne = store.dispatch(addExpense({ description: 'Rent', amount: 100, createdAt: 1000 }));
+const expenseTwo = store.dispatch(addExpense({ description: 'Coffee', amount: 100, createdAt: -1000 }));
 
 // can get the value returned from the reducer
-console.log(expenseOne);
+// console.log(expenseOne);
 
 // store.dispatch(removeExpense({ id: expenseOne.expense.id }));
 // store.dispatch(editExpense(expenseTwo.expense.id, { amount: 500}))
-// store.dispatch(setTextFilter('rent'));
+store.dispatch(setTextFilter('rent'));
 // store.dispatch(setTextFilter());
 //
 // store.dispatch(sortByAmount());
 // store.dispatch(sortByDate());
 store.dispatch(setStartDate(125));
-store.dispatch(setStartDate());
+// store.dispatch(setStartDate());
 store.dispatch(setEndDate(1250));
-store.dispatch(setEndDate());
+// store.dispatch(setEndDate());
 
 // example of using ES6 spread operator with objects
-const user = {
-    name: 'Bruh',
-    age: 20
-};
-
-console.log({
-    ...user,
-    location: 'Philly',
-    // override age attribute from user
-    age: 27
-})
+// const user = {
+//     name: 'Bruh',
+//     age: 20
+// };
+//
+// console.log({
+//     ...user,
+//     location: 'Philly',
+//     // override age attribute from user
+//     age: 27
+// })
 
 // This is how it would be if you only had one reducer for everything
 // see how much nicer it looks when we do it using combineReducers like above
