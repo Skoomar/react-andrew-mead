@@ -442,3 +442,26 @@ https://www.udemy.com/course/react-2nd-edition
     - will reassign age to 30
     - just remember that the reassignment has to occur AFTER wherever the spread object is placed in the new object
     
+
+## Section 11 - React with Redux
+
+- need to install `npm install react-redux`
+
+- We can combine React and Redux to create 'higher-order' Redux Components
+- A Higher Order Component is a **component that renders another component**
+  - usually abbreviated to **HOC**
+  - good for:
+    - *reusing code*
+    - *render hijacking*
+    - *prop manipulation*
+    - *abstract state*
+- Redux components are reactive
+  - whenever a value in the store changes, any component using that value will automatically be re-rendered with the new value
+
+
+###\<Provider\> & Connect
+- From react-redux, we get the `Provider` component
+  - this takes a Redux Store as props
+  - then any components nested within it can use that store
+  - within those components, need to import `connect` function from react-redux to 'connect' the component to the store
+  
