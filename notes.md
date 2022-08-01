@@ -1,6 +1,12 @@
 # Notes for Andrew Mead's Complete React Developer Course (w/ Hooks and Redux)
 https://www.udemy.com/course/react-2nd-edition
 
+##Terminology
+- **Controlled Input** - an input where the value is controlled by JS
+  - e.g. if you have an input with `value={props.stuff}` and in the `onChange` you're changing the value of the props.stuff variable
+  - so the value of the input is initialised with whatever the default value of props.stuff is and then changes based on stuff going in the JS
+  - so the input is controlled by JS
+
 ##Section 3 - Hello React
 
 ###Set-up stuff
@@ -459,9 +465,12 @@ https://www.udemy.com/course/react-2nd-edition
   - whenever a value in the store changes, any component using that value will automatically be re-rendered with the new value
 
 
-###\<Provider\> & Connect
+###\<Provider\>, Connect, and Dispatch
 - From react-redux, we get the `Provider` component
   - this takes a Redux Store as props
   - then any components nested within it can use that store
-  - within those components, need to import `connect` function from react-redux to 'connect' the component to the store
+- within those components, need to import `connect` function from react-redux to 'connect' the component to the store
+- all connected components receive the `dispatch` function in their props
+  - this is the function used to call Redux Actions to make a change in the store
+  - so if you want to change a Store value from within a connected component, call `dispatch()` with an action
   
