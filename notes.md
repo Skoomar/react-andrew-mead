@@ -474,3 +474,13 @@ https://www.udemy.com/course/react-2nd-edition
   - this is the function used to call Redux Actions to make a change in the store
   - so if you want to change a Store value from within a connected component, call `dispatch()` with an action
   
+###Working with dates in React
+- in this project we use:
+  - Moment.js to use datetime format in our JS code
+    - https://momentjs.com/
+    - `npm install moment`
+    - Note: there is a default Date type in JS but it's awful and using Moment.js is basically industry standard
+  - and AirBnB's open-source 'react-dates' tool to create a date picker in our UI 
+    - https://airbnb.io/projects/react-dates/
+    - `npm install react-dates --force` using force because npm thinks it's incompatible but this guy in the comments for this lecture said it was ok to force it
+    - don't need the react-addons-shallow thing that's mentioned to make this run
