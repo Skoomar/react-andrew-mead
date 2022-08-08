@@ -319,7 +319,6 @@ https://www.udemy.com/course/react-2nd-edition
 - you can use React Router to dynamically route within your components like this
 
 
-
 ###Outdated stuff from this course
 - need to put `<Route>` tags inside `<Routes>`
 - don't need to use `<Switch>` to set up a 404 page, just use `path="*"`
@@ -333,6 +332,8 @@ https://www.udemy.com/course/react-2nd-edition
     - we can use these to help route our components dynamically
         - inside our JS we access them from props
         - e.g. `props.match.params.id` or `props.location.hash`
+- can't use `history.push()` anymore
+  - instead use the `useNavigate()` function
 
 
 ##Section 10 - Redux

@@ -1,11 +1,20 @@
-import React from "react";
+import React from "react"
+import { connect } from "react-redux";
+import { addExpense } from "../actions/expenses";
 import ExpenseForm from "./ExpenseForm";
+import { useNavigate } from 'react-router-dom'
 
-const AddExpense = () => (
+const AddExpense = (props) => {
+    const navigate = useNavigate();
+    return (
     <div>
         <h1>Add Expense</h1>
-        <ExpenseForm />
+        <ExpenseForm onSubmit={(expense) => {
+            props.dispatch(addExpense(expense))
+            navigate('/')
+        }} />
     </div>
-);
+    )
+};
 
-export default AddExpense;
+export default connect()(AddExpense);
