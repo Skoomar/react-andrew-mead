@@ -489,3 +489,17 @@ https://www.udemy.com/course/react-2nd-edition
     - https://airbnb.io/projects/react-dates/
     - `npm install react-dates --force` using force because npm thinks it's incompatible but this guy in the comments for this lecture said it was ok to force it
     - don't need the react-addons-shallow thing that's mentioned to make this run
+
+###Redux Dev Tools
+- There are Dev Tools for Redux which shows you what's going on with your stores, data, actions
+- https://github.com/reduxjs/redux-devtools
+  - *old repo*: ~~https://github.com/zalmoxisus/redux-devtools-extension~~
+- To set it up:
+  - install extension for your web browser
+  - also need to add this line as a parameter to `createStore` so that it works with the extension:
+    - `window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()`
+- Now you should be able to see the Redux tab in console of your browser
+  - It shows you stuff like:
+    - the current state in your app
+    - actions that have been dispatched 
+      - in each action we can see the state after each action is dispatched, what's been added to state in that action etc
