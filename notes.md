@@ -454,7 +454,24 @@ https://www.udemy.com/course/react-2nd-edition
 
 - need to install `npm install react-redux`
 
-- We can combine React and Redux to create 'higher-order' Redux Components
+
+- Redux components are reactive
+  - whenever a value in the store changes, any component using that value will automatically be re-rendered with the new value
+
+
+###\<Provider\>, Connect, and Dispatch
+- From react-redux, we get the `Provider` component
+  - this takes a Redux Store as props
+  - then any components nested within it can use that store
+
+####useDispatch and useSelector
+- For **functional** components, we use `useDispatch` and `useSelector` to get state from the store and dispatch actions
+
+####connect()()
+- For **class-based** components, we use `connect`
+  
+- within those components, need to import `connect` function from react-redux to 'connect' the component to the store
+
 - A Higher Order Component is a **component that renders another component**
   - usually abbreviated to **HOC**
   - good for:
@@ -462,18 +479,8 @@ https://www.udemy.com/course/react-2nd-edition
     - *render hijacking*
     - *prop manipulation*
     - *abstract state*
-  - **This HOC stuff was used to introduce the `connect` method for Redux but that's old now so not sure how useful HOCs are otherwise**
-- Redux components are reactive
-  - whenever a value in the store changes, any component using that value will automatically be re-rendered with the new value
+- We use HOCs to create 'Redux Components' when using the `connect` function
 
-
-###\<Provider\>, ~~Connect~~, and Dispatch
-- From react-redux, we get the `Provider` component
-  - this takes a Redux Store as props
-  - then any components nested within it can use that store
-- ~~within those components, need to import `connect` function from react-redux to 'connect' the component to the store~~
-- `connect` is not the way to do things now
-  - instead we have `useDispatch` and `useSelector` to get state from the store and dispatch actions
 - all connected components receive the `dispatch` function in their props
   - this is the function used to call Redux Actions to make a change in the store
   - so if you want to change a Store value from within a connected component, call `dispatch()` with an action

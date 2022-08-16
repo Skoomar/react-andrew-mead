@@ -4,11 +4,7 @@ import ExpenseForm from "./ExpenseForm";
 import {editExpense, removeExpense} from "../actions/expenses";
 import {useDispatch, useSelector} from "react-redux";
 
-// USING connect()() IS THE OLD WAY OF USING REDUX - NOW WE CAN JUST USE useDispatch & useSelector
-// it's so much easier - no need for all that HOC shite
-// TODO: change the other components to remove shite connect() and put in useDispatch/useSelector instead
-
-const EditExpense = (props) => {
+const EditExpense = () => {
     let { id } = useParams();
     const navigate = useNavigate();
     const dispatch = useDispatch();
