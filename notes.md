@@ -510,3 +510,30 @@ https://www.udemy.com/course/react-2nd-edition
     - the current state in your app
     - actions that have been dispatched 
       - in each action we can see the state after each action is dispatched, what's been added to state in that action etc
+
+
+##Section 12 - Testing in React
+
+###Jest
+- In this course, we will use the Jest framework to test our code
+
+####Setup Jest
+- `npm i jest`
+  - then in your package.json `scripts`, add `"test": "jest"` 
+  - to run Jest in **watch mode**, use run `jest --watch`
+    - in this case because we're running Jest through our `test` script, when we enter `npm test`, we can't just add `--watch` on the end
+    - can't write `npm test --watch`
+    - instead need to put an extra `--` in between to tell the CLI that the following are flags for the evaluated command, not the npm command
+    - `npm test -- --watch`
+
+####Jest Info
+- *Globals*
+  - There are things that Jest provides globally to your project once you install it
+  - This includes methods like `test()`, `beforeEach()` etc
+    - so you don't need to import Jest to use these
+  - (Look in the docs under API Reference -> Globals to see the details)
+- `expect()`
+  - this is like `assert` in other languages
+  - example usage:
+    - `expect(var1).toBe(10)`
+  - So you call expect() with the variable you want to run your assertion on, then call a method on it to test whatever specific assertion you're trying to make
