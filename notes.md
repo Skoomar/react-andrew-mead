@@ -514,6 +514,11 @@ https://www.udemy.com/course/react-2nd-edition
 
 ##Section 12 - Testing in React
 
+###General testing advice
+- **Fixtures** are test data
+  - you store the data used in your unit tests in a directory called `fixtures` inside the `tests` directory
+  - e.g. dummy objects, dummy data
+
 ###Jest
 - In this course, we will use the Jest framework to test our code
 
@@ -537,3 +542,7 @@ https://www.udemy.com/course/react-2nd-edition
   - example usage:
     - `expect(var1).toBe(10)`
   - So you call expect() with the variable you want to run your assertion on, then call a method on it to test whatever specific assertion you're trying to make
+
+#####Testing Reducers
+- the default action when a reducer is set up is @@INIT
+  - you can use this to test the default state of a filter before other actions take place
