@@ -546,3 +546,24 @@ https://www.udemy.com/course/react-2nd-edition
 #####Testing Reducers
 - the default action when a reducer is set up is @@INIT
   - you can use this to test the default state of a filter before other actions take place
+
+
+### Snapshot Testing on React Components
+- How do we test what's being rendered in our React components
+- We can use a library called React Test Renderer
+  - `npm i react-test-renderer`
+    - might have a conflict with react-dates so just --force it
+  - allows you to render the components as normal JS code and then make assertions on whatever is rendered
+  - Two ways of using it:
+    - *Shallow rendering*: only renders the given component
+    - *Full DOM rendering*: renders the component AND child components
+
+- *Snapshot Testing*
+  - once we have the output from the react-test-renderer we can see the component as a JS object
+  - we could make loads of assertions for each different state this component may find itself in but that's really inefficient
+  - instead we keep *snapshots* of the component in its different states 
+    - then if something changes, we can compare to the snapshot and if the change is what we expect then test passes
+      - if it's not what we expect then test fails
+  - Jest has a `.toMatchSnapshot()` matcher with the `expect` function which we can use for this
+  - a `__snapshots__` directory will appear in the directory you run the test file.
+    - it contains all the snapshots used in the tests for that directory
