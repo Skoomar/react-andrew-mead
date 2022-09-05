@@ -2,7 +2,6 @@ import React from "react";
 import moment from "moment";
 import { SingleDatePicker} from "react-dates";
 import 'react-dates/initialize';
-import 'react-dates/lib/css/_datepicker.css'
 
 // calling moment() on it's own just straight up gives you an object containing the current point in time
 // it also has a lot of functions you can call on it - can see all of them if you look in the console DevTools and look at the __proto__ for this object

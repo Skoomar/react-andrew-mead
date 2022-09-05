@@ -549,7 +549,14 @@ https://www.udemy.com/course/react-2nd-edition
 
 
 ### Snapshot Testing on React Components
-- How do we test what's being rendered in our React components
+- How do we test what's being rendered in our React components?
+- we could make loads of assertions for each different state this component may find itself in but that's really inefficient
+- We use *Snapshot Testing*
+  - capture how the component is rendered in it's current state e.g. in a JS object
+  - then for a given event we can see what changes and compare to the snapshot 
+    - if the change is what we expect then test passes
+    - if it's not what we expect then test fails
+
 - We can use a library called React Test Renderer
   - `npm i react-test-renderer`
     - might have a conflict with react-dates so just --force it
@@ -557,13 +564,46 @@ https://www.udemy.com/course/react-2nd-edition
   - Two ways of using it:
     - *Shallow rendering*: only renders the given component
     - *Full DOM rendering*: renders the component AND child components
-
-- *Snapshot Testing*
   - once we have the output from the react-test-renderer we can see the component as a JS object
-  - we could make loads of assertions for each different state this component may find itself in but that's really inefficient
-  - instead we keep *snapshots* of the component in its different states 
-    - then if something changes, we can compare to the snapshot and if the change is what we expect then test passes
-      - if it's not what we expect then test fails
   - Jest has a `.toMatchSnapshot()` matcher with the `expect` function which we can use for this
   - a `__snapshots__` directory will appear in the directory you run the test file.
     - it contains all the snapshots used in the tests for that directory
+- but it's quite simple and limited in what it can do
+  - not very easy to do things like search the rendered output for a specific element and grab its text etc
+
+~~- Another renderer library is *Enzyme*~~
+  - ~~written at AirBnB~~
+  - ~~many more features than React Test Renderer~~
+  - ~~set-up:~~
+    - ~~`npm i enzyme`???~~
+    - ~~might need to install `enzyme-adapter-react-{react version}`\~~~
+    - ~~note: in this section we installed 'Request Animation Frame' - `npm i raf`\~~~
+      - ~~Is something that's provided by browsers~~
+      - ~~need it inside Enzyme testing environments otherwise you might get some issues~~
+    - ~~also need to create a `setupTests.js` inside your `tests/` folder~~
+  - So Enzyme is basically dead in React 18 - not much point following this bit
+  - look into RTL (React Testing Library) instead 
+    - https://www.robinwieruch.de/react-testing-library/
+
+[//]: # TODO: Look at RTL for testing()
+
+### Mocking
+- This part of the course is still using Enzyme so ignore it and look into RTL + Jest for mocking
+
+### Test Spies
+- outdated enzyme stuff in this section as well so look into RTL
+
+### Other tips from this otherwise outdated testing section
+- Chapter 124: using mapDispatchToProps for testing using Redux
+
+## Section 13: Deploying your apps
+- using version control, deploying code to a live server etc
+
+### Production Webpack
+- need to set up webpack to build your app so it's ready for prod
+  - this might use a different sourcemap than building in dev
+    - different sourcemaps might be better at different things
+      - e.g. quicker build vs optimised build, larger output file size vs smaller etc
+- in our `webpack.config.js`, add the script `"build:prod": "webpack -p`
+  - the `-p` flag to tell Webpack set the `NODE_ENV` variable to 'production'
+    - this signals to the 3rd-party libraries to just load the most barebones versions possible
