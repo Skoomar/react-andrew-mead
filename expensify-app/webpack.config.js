@@ -8,7 +8,8 @@ const path = require('path');
 // but the two basic things you NEED to tell it are:
 //  - the entry point: i.e. where to start looking to build the bundle
 //  - and an object containing details of where the output bundle file should be stored
-module.exports = () => {
+module.exports = (env) => {
+    const isProd = env === 'production';
     return {
         entry: './src/app.js',
         output: {
@@ -32,7 +33,8 @@ module.exports = () => {
                 ]
             }]
         },
-        devtool: 'cheap-module-source-map',
+        // use the slower but more optimised source-map if building prod, else use the quicker cheap-module-source-map
+        devtool: isProd ? 'source-map' : 'cheap-module-source-map',
         devServer: {
             static: path.join(__dirname, 'public'),
             historyApiFallback: true

@@ -12,15 +12,6 @@ import getVisibleExpenses from "./selectors/expenses";
 
 const store = configureStore();
 
-store.dispatch(addExpense({description: 'Water bill', amount: 50, createdAt: 100}));
-store.dispatch(addExpense({description: 'Gas bill', createdAt: 10000}));
-store.dispatch(addExpense({description: 'Rent', amount: 1095}));
-store.dispatch(setTextFilter(''));
-
-const state = store.getState();
-const visibleExpenses = getVisibleExpenses(state.expenses, state.filters);
-console.log(visibleExpenses);
-
 const jsx = (
     // Provider takes your Redux store as props
     <Provider store={store}>

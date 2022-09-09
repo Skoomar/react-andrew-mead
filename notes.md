@@ -607,3 +607,16 @@ https://www.udemy.com/course/react-2nd-edition
 - in our `webpack.config.js`, add the script `"build:prod": "webpack -p`
   - the `-p` flag to tell Webpack set the `NODE_ENV` variable to 'production'
     - this signals to the 3rd-party libraries to just load the most barebones versions possible
+
+### Separating CSS Files
+- need to set your Webpack to output your CSS files separately to your bundle.js
+- otherwise it'll put all your styles in the bundle.js file that's generated when building the project
+  - when your styles are in the bundle.js, they don't actually get applied in the browser until AFTER the JS runs
+    - that could take some time
+- to do this, you need to use a plugin for Webpack
+
+#### extract-text-webpack-plugin
+- https://www.npmjs.com/package/extract-text-webpack-plugin
+- ok we're using Webpack 5. This plugin is deprecated for that version of Webpack so might have to ignore Andrew here
+- looks like we should use *mini-css-extract-plugin* instead
+  - https://github.com/webpack-contrib/mini-css-extract-plugin
