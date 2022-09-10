@@ -1,5 +1,5 @@
 const path = require('path');
-
+const miniCssExtractPlugin = require('mini-css-extract-plugin');
 
 // use this nodeJS function to expose an object to another file
 // so Webpack will grab this file, run it, and have access to whatever we put in this object
@@ -10,6 +10,7 @@ const path = require('path');
 //  - and an object containing details of where the output bundle file should be stored
 module.exports = (env) => {
     const isProd = env === 'production';
+
     return {
         entry: './src/app.js',
         output: {
@@ -26,15 +27,31 @@ module.exports = (env) => {
                 exclude: /node_modules/
             }, {
                 test: /\.s?css$/,
-                use: [
-                    'style-loader',
-                    'css-loader',
-                    'sass-loader'
-                ]
+                use: [miniCssExtractPlugin.loader, "css-loader", "sass-loader"]
+                // --- tbh I think we could just keep this line above and remove the sourceMap option things below as the console already seem to point to the styles in the right place
+                // Andrew just put these lines below because his versions of libraries seem to point the console at the big bundle.js/styles.css instead of the files they actually come from - don't think we need that tho
+                // use: [
+                //     miniCssExtractPlugin.loader,
+                //     {
+                //         loader: "css-loader",
+                //         options: {
+                //             sourceMap: true
+                //         }
+                //     },
+                //     {
+                //         loader: "sass-loader",
+                //         options: {
+                //             sourceMap: true
+                //         }
+                //     }
+                // ]
             }]
         },
-        // use the slower but more optimised source-map if building prod, else use the quicker cheap-module-source-map
-        devtool: isProd ? 'source-map' : 'cheap-module-source-map',
+        plugins: [
+            new miniCssExtractPlugin()
+        ],
+        // use the slower but more optimised source-map if building prod, else use the quicker cheap-module-source-map (changed to inline-source-map now for some reason)
+        devtool: isProd ? 'source-map' : 'inline-source-map',
         devServer: {
             static: path.join(__dirname, 'public'),
             historyApiFallback: true

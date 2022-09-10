@@ -617,6 +617,19 @@ https://www.udemy.com/course/react-2nd-edition
 
 #### extract-text-webpack-plugin
 - https://www.npmjs.com/package/extract-text-webpack-plugin
+- 
 - ok we're using Webpack 5. This plugin is deprecated for that version of Webpack so might have to ignore Andrew here
 - looks like we should use *mini-css-extract-plugin* instead
   - https://github.com/webpack-contrib/mini-css-extract-plugin
+- Set-up
+  - run `npm i mini-css-extract-plugin`
+  - add the config for the plugin as it's been done in the webpack.config.js
+  - now whenever you run `npm run build:{env}`, it'll also generate a `main.css` which contains all the styles for your project
+  - final step is to add `<link rel="stylesheet" type="text/css" href="main.css">` to your index.html to get the styles working
+- at this point, Andrew starts going on about how the source map might be making the debugging show you the line numbers in the massive output bundle.js/styles.css instead of in the code
+  - but looks like it's not doing that in my environment (probably cos it's more up to date)
+  - so maybe can ignore doing things he mentions here:
+    - changing dev source-map to inline-source-map
+    - changing the styles loaders to objects instead of strings in the webpack config
+      - because by default sourceMaps is set to false for style loaders apparently (in his version anyway)
+      - so need to put the loader name string AND set sourceMap: true in an object
