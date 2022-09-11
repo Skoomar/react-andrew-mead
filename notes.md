@@ -668,6 +668,15 @@ https://www.udemy.com/course/react-2nd-edition
   - it will look for a `start` script in your package.json
     - so set that up with the node command to start your server
   - it will also look for a `heroku-postbuild` script - this is what you use to build the assets (the HTML, JS, CSS files in public)
-    - so set that to `npm run build:prod`
+    - so set that to `npm run build:p`
 - note: also make sure the port in app.listen() is set to dynamically take the value from process.env.PORT
   - Heroku assigns a port number to your app through that environment variable
+
+- also apparently need this in your package.json for Heroku to work if you're using npm v7+
+`    "engines": {
+  "node": "^15.14.0",
+  "npm": "^7.10.0"
+  },`
+
+- open your Heroku app using `heroku open` or just open the URL it gives you
+- use `heroku logs` to see logs for debugging
