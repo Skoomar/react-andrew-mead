@@ -633,3 +633,41 @@ https://www.udemy.com/course/react-2nd-edition
     - changing the styles loaders to objects instead of strings in the webpack config
       - because by default sourceMaps is set to false for style loaders apparently (in his version anyway)
       - so need to put the loader name string AND set sourceMap: true in an object
+
+### Production Web Server using Express
+- http://expressjs.com/
+- `npm i express`
+- config for the Express server is in `server/server.js`
+- to start the server up, run `node server/server.js`
+  - need to have built your stuff to prod otherwise your public/ folder will be empty and it won't serve anything to the server
+
+#### server.js set up for Express
+- app.use() is for setting options for your express server
+- we will use it to "register some middleware"
+  - by middleware we mean: something that will run upon every request to the server
+  - e.g. if someone makes a request to the server, we might want to run some code that logs something to the screen, or serves the asset that was requested
+- to do that we put express.static() inside app.use()
+
+- app.get() is used to choose what exactly to serve + alternative things to serve
+- if we don't set your server up with this you'll get some issues
+  - if you're on a different page on your Route path other than the home '/' then your page will disappear when you refresh
+  - it won't be able to find e.g. `localhost:3000/create`
+  - because there is no file or folder called e.g. `create` inside public/
+  - so you need to use app.get() to make sure it's always looking for these things from INSIDE index.html
+
+- app.listen() is used to tell what port you want the server to run on
+- e.g. `app.listen('3000')`
+
+### Deploying with Heroku
+- Log in/sign up to Heroku
+- install the Heroku CLI 
+  - for Ubuntu: `curl https://cli-assets.heroku.com/install-ubuntu.sh | sh`
+- `heroku create {app-name}`
+
+- Heroku needs you to tell it how to run your app
+  - it will look for a `start` script in your package.json
+    - so set that up with the node command to start your server
+  - it will also look for a `heroku-postbuild` script - this is what you use to build the assets (the HTML, JS, CSS files in public)
+    - so set that to `npm run build:prod`
+- note: also make sure the port in app.listen() is set to dynamically take the value from process.env.PORT
+  - Heroku assigns a port number to your app through that environment variable
