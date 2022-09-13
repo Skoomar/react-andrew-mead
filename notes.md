@@ -7,6 +7,11 @@ https://www.udemy.com/course/react-2nd-edition
   - so the value of the input is initialised with whatever the default value of props.stuff is and then changes based on stuff going in the JS
   - so the input is controlled by JS
 
+## Libraries to note
+- react-dates
+- moment (for formatting time - clock time, days, months, years etc)
+- numeral (for formatting numbers)
+
 ##Section 3 - Hello React
 
 ###Set-up stuff
