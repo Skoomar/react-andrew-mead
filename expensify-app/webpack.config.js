@@ -16,8 +16,9 @@ module.exports = (env) => {
         output: {
             // path requires an absolute path.
             // You can use __dirname to get the absolute path of this project, then if desired, use path.join() to concatenate any more specific directory within this project
-            path: path.join(__dirname, 'public'),
-            filename: 'bundle.js'
+            path: path.join(__dirname, 'public', 'dist'),
+            filename: 'bundle.js',
+            publicPath: '/dist/'
         },
         mode: 'development',
         module: {

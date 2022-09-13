@@ -680,3 +680,28 @@ https://www.udemy.com/course/react-2nd-edition
 
 - open your Heroku app using `heroku open` or just open the URL it gives you
 - use `heroku logs` to see logs for debugging
+
+### Prod Dependencies vs Dev Dependencies
+- our prod env might not need the same dependencies as our dev env
+  - e.g. our Heroku server doesn't need to use webpack-dev-server
+- Can split the package.json into `devDependencies` and `dependencies`
+  - devDependencies will be installed locally to be used for dev
+  - and dependencies will be what's pushed to prod
+- 
+- *when installing a library with npm*
+  - use the `-D` or `--save-dev` flag to install it as a devDependency
+    - e.g. `npm i react -D` or `npm i react --save-dev`
+
+- when doing a fresh `npm install` of all dependencies:
+  - to install all prod dependencies add the production flag: `npm install --production`
+  - else just use `npm install`
+
+- Andrew also shows a way to put all the bundle.js/main.css files into `public/dist` instead of having them clutter up `public`
+  - and also, because dev-server doesn't actually write the output files to disk (it just serves them up virtually),
+    - it won't actually write anything to the public folder
+    - it'll just be in an imaginary public/dist folder
+    - if you look in the network tab in the browser console, you can see these 'imaginary' files being requested
+    - (obviously if you do build:dev or build:prod then they'll appear there but dev-server itself doesn't need them)
+- it's implemented slightly different in newer version of Webpack tho
+  - in the index.html, put `/dist/` in front of the paths for the main.css and bundle.js
+  - and in webpack.config.js, add `publicPath: '/dist/` to the `output` section
